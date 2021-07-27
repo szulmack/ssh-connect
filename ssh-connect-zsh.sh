@@ -1,17 +1,17 @@
 #!/bin/bash
 
 if [ -n "$ZSH_VERSION" ]; then
-  src=$(dirname "${(%):-%N}")/listbox/listbox.sh
+  src=$(dirname "${(%):-%N}")/listbox/listbox.zsh
 elif [ -n "$BASH_VERSION" ]; then
   src=$(dirname "${BASH_SOURCE[0]}")/listbox/listbox.sh
 else
-  src=$(dirname "$0")/listbox/listbox.sh
+  src=$(dirname "$0")/listbox/listbox.zsh
 fi
 
 source "$src"
 
 ssh-history() {
-  cat "$HISTFILE" | grep -E "^ssh\s" | sed -e 's/\s*$//' | sort | uniq -c | sort -nr | sed -e "s/^\s*[0-9]*\s//"
+  cat "$HISTFILE" | grep -E "ssh\s" | sed -e 's/\s*$//' | sort | uniq -c | sort -nr | sed -e "s/^\s*[0-9]*\s//" | sed 's/.*\;//'
 }
 
 ssh-connect() {
